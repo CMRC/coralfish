@@ -8,7 +8,11 @@
 
 (defn gis
   []
-  (html-resource (URL. "http://coralfish.ucc.ie")))
+  (transform (html-resource (URL. "http://coralfish.ucc.ie"))
+             [:body]
+             (append {:tag :img :attrs {:src "http://www.climateireland.ie:8080/plot/Kilkenny/MAM/T_2M/decadal"}})))
 
 (defpage "/noir" []
-  (emit* (gis)))
+  {:status 200
+   :headers {"Content-Type" "text/html"}
+   :body (emit* (gis))})
