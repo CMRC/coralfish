@@ -6,7 +6,7 @@
             (html5
               [:head
                [:title "coralfish"]
-               (include-css "/noir/css/reset.css")]
+               (include-css "/css/reset.css")]
               [:body
                [:div#wrapper
                 content]]))
