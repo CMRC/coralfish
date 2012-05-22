@@ -6,9 +6,9 @@
         [net.cgrand.enlive-html])
   (:import java.net.URL))
 
-(defn gis
-  []
-  (transform (html-resource (URL. "http://coralfish.ucc.ie"))
+defn gis
+  [rest]
+  (transform (html-resource (URL. (str "http://coralfish.ucc.ie/" rest)))
              [:head]
              (append {:tag :script 
                       :attrs {:type "text/javascript"}
@@ -25,3 +25,9 @@
   {:status 200
    :headers {"Content-Type" "text/html"}
    :body (emit* (gis))})
+
+(defpage ["/noir/:rest" :rest #".*$"]
+  {:keys [rest]}
+  {:status 200
+   :headers {"Content-Type" "text/html"}
+   :body (emit* (gis rest))})
