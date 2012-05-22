@@ -9,8 +9,17 @@
 (defn gis
   []
   (transform (html-resource (URL. "http://coralfish.ucc.ie"))
-             [:body]
-             (append {:tag :img :attrs {:src "http://www.climateireland.ie:8080/plot/Kilkenny/MAM/T_2M/decadal"}})))
+             [:head]
+             (append {:tag :script 
+                      :attrs {:type "text/javascript"}
+                      :content (str 
+"function onShowInfoLayerClick ( layerID ) {"
+    "windowURL = 'http://www.climateireland.ie:8080/svg/compare/2021/2035/J2D/T_2M';"
+    "window_handle = window.open( windowURL, 'popupDOI',"
+                                 "'toolbar=no,status=yes,resizable=yes,scrollbars=yes,width=800,height=700,top=160,left=160' );"
+    "window_handle.focus();"
+    "return false;"
+"}")})))
 
 (defpage "/noir" []
   {:status 200
