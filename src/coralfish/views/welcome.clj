@@ -15,12 +15,15 @@
         layers (apply str (interpose \& (map #(str "layer[]=" %) layer)))
         param_str (apply str (interpose \& (map #(str (name (key %)) "=" (val %)) keys2)))
         url (URL. (str "http://coralfish.ucc.ie/" rest "?" param_str "&" layers))]
-    (transform (html-resource url) 
+    (-> (transform (html-resource url) 
                [:#mapserverForm :> :input]
                (fn [a-node] (let [id (keyword (:id (:attrs a-node)))
                                   par (when id (id keys))]
                                  (println id " = " par)
-                                     (assoc-in a-node [:attrs :value] par))))))
+                                     (assoc-in a-node [:attrs :value] par))))
+        (transform 
+              [:#infobar]
+              (content (apply str (interpose ", " layer)))))))
 
 (defpage "/noir" []
   {:status 200
