@@ -1,7 +1,9 @@
 (defproject coralfish "0.1.0-SNAPSHOT"
             :description "FIXME: write this!"
             :dependencies [[org.clojure/clojure "1.3.0"]
-                           [noir "1.2.1"]
+			   [compojure "1.1.0"]
                            [enlive "1.0.0"]]
-            :main coralfish.server)
+	    :dev-dependencies [[lein-ring "0.4.5"]]
+	    :ring {:handler coralfish.views.welcome}
+	    :main coralfish.views.welcome)
 
